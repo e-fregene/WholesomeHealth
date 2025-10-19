@@ -1,19 +1,41 @@
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
+import { useEffect, useState } from "react";
+import heroBg1 from "@/assets/hero-bg.jpg";
+import heroBg2 from "@/assets/hero-bg-2.jpg";
+import heroBg3 from "@/assets/hero-bg-3.jpg";
 
 const Hero = () => {
+  const images = [heroBg1, heroBg2, heroBg3];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        backgroundImage: `url(${heroBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
     >
+      {/* Sliding Background Images */}
+      {images.map((img, index) => (
+        <div
+          key={index}
+          className="absolute inset-0 transition-opacity duration-1000"
+          style={{
+            backgroundImage: `url(${img})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+            opacity: currentImageIndex === index ? 1 : 0,
+          }}
+        />
+      ))}
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/60" />
 

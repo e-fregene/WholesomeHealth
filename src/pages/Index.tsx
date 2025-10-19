@@ -6,6 +6,7 @@ import Profile from "@/components/Profile";
 import Reviews from "@/components/Reviews";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <Reviews />
       <Contact />
       <Footer />
+      <ChatWidget />
     </div>
   );
 };

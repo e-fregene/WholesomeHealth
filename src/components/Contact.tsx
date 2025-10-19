@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,10 +10,25 @@ const Contact = () => {
     email: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Thank you for reaching out! We'll get back to you soon.");
-    setFormData({ name: "", email: "" });
+    
+    try {
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success("Thank you for reaching out! We'll get back to you soon.");
+      setFormData({ name: "", email: "" });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast.error("Failed to send message. Please try again.");
+    }
   };
 
   return (

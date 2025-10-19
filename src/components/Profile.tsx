@@ -33,7 +33,7 @@ const Profile = () => {
               <Button
                 variant="default"
                 size="lg"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                onClick={() => window.open("https://www.psychologytoday.com/us/psychiatrists/ebitari-fregene-chesterfield-mo/1396566", "_blank")}
               >
                 Find out more
               </Button>
