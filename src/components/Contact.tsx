@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -8,6 +9,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    message: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -18,13 +20,14 @@ const Contact = () => {
         body: {
           name: formData.name,
           email: formData.email,
+          message: formData.message,
         }
       });
 
       if (error) throw error;
 
       toast.success("Thank you for reaching out! We'll get back to you soon.");
-      setFormData({ name: "", email: "" });
+      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Error sending email:", error);
       toast.error("Failed to send message. Please try again.");
@@ -62,6 +65,15 @@ const Contact = () => {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
                 className="w-full"
+              />
+            </div>
+            <div>
+              <Textarea
+                placeholder="Message*"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                required
+                className="w-full min-h-[120px]"
               />
             </div>
             <Button type="submit" variant="default" size="lg" className="w-full">

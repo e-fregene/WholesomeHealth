@@ -11,6 +11,7 @@ const corsHeaders = {
 interface ContactEmailRequest {
   name: string;
   email: string;
+  message: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -19,11 +20,12 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email }: ContactEmailRequest = await req.json();
+    const { name, email, message }: ContactEmailRequest = await req.json();
 
     console.log("Sending contact email for:", name, email);
 
-    const emailResponse = await fetch("https://api.resend.com/emails", {
+    // Send email to provider
+    const providerEmailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,15 +40,44 @@ const handler = async (req: Request): Promise<Response> => {
           <h1>New Contact Form Submission</h1>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
-          <p>This person has requested to be contacted through your website.</p>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
         `,
       }),
     });
 
-    const emailData = await emailResponse.json();
-    console.log("Email sent successfully:", emailData);
+    const providerEmailData = await providerEmailResponse.json();
+    console.log("Provider email sent successfully:", providerEmailData);
 
-    return new Response(JSON.stringify(emailData), {
+    // Send confirmation email to user
+    const confirmationEmailResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: "Wholesome Behavioral Health <onboarding@resend.dev>",
+        to: [email],
+        subject: "We Received Your Message",
+        html: `
+          <h1>Thank you for contacting Wholesome Behavioral Health, ${name}!</h1>
+          <p>We have received your message and will get back to you as soon as possible.</p>
+          <p><strong>Your message:</strong></p>
+          <p>${message}</p>
+          <br>
+          <p>Best regards,<br>Wholesome Behavioral Health Team</p>
+        `,
+      }),
+    });
+
+    const confirmationEmailData = await confirmationEmailResponse.json();
+    console.log("Confirmation email sent successfully:", confirmationEmailData);
+
+    return new Response(JSON.stringify({ 
+      provider: providerEmailData, 
+      confirmation: confirmationEmailData 
+    }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
