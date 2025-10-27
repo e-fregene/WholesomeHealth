@@ -1,5 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const reviews = [
   {
@@ -26,38 +32,65 @@ const Reviews = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {reviews.map((review, index) => (
-            <Card
-              key={index}
-              className="animate-fade-in-up hover:shadow-elegant transition-all duration-300 border-0 shadow-md"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardContent className="p-6">
-                {/* Star Rating */}
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-5 w-5 fill-secondary text-secondary"
-                    />
-                  ))}
-                </div>
+        <TooltipProvider>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {reviews.map((review, index) => (
+              <Tooltip key={index}>
+                <TooltipTrigger asChild>
+                  <Card
+                    className="animate-fade-in-up hover:shadow-elegant transition-all duration-300 border-0 shadow-md cursor-pointer"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <CardContent className="p-6">
+                      {/* Star Rating */}
+                      <div className="flex gap-1 mb-4">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className="h-5 w-5 fill-secondary text-secondary"
+                          />
+                        ))}
+                      </div>
 
-                {/* Review Text */}
-                <p className="text-foreground/80 mb-4 line-clamp-6 leading-relaxed">
-                  {review.text}
-                </p>
+                      {/* Review Text */}
+                      <p className="text-foreground/80 mb-4 line-clamp-6 leading-relaxed">
+                        {review.text}
+                      </p>
 
-                {/* Author & Date */}
-                <div className="pt-4 border-t border-border">
-                  <p className="text-sm font-semibold">Anonymous</p>
-                  <p className="text-xs text-muted-foreground">{review.date}</p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                      {/* Author & Date */}
+                      <div className="pt-4 border-t border-border">
+                        <p className="text-sm font-semibold">Anonymous</p>
+                        <p className="text-xs text-muted-foreground">{review.date}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TooltipTrigger>
+                <TooltipContent 
+                  className="max-w-md p-6 bg-card border shadow-elegant"
+                  sideOffset={5}
+                >
+                  <div className="space-y-4">
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="h-4 w-4 fill-secondary text-secondary"
+                        />
+                      ))}
+                    </div>
+                    <p className="text-foreground/80 leading-relaxed">
+                      {review.text}
+                    </p>
+                    <div className="pt-2 border-t border-border">
+                      <p className="text-sm font-semibold">Anonymous</p>
+                      <p className="text-xs text-muted-foreground">{review.date}</p>
+                    </div>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            ))}
+          </div>
+        </TooltipProvider>
       </div>
     </section>
   );
