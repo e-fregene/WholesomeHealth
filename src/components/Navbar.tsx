@@ -24,8 +24,15 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center transition-transform hover:scale-105">
-            <img src={logo} alt="Wholesome Health" className="h-12 w-auto" />
+          <a 
+            href="#home" 
+            className="flex items-center transition-transform hover:scale-105"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
+            <img src={logo} alt="Wholesome Behavioral Health" className="h-16 md:h-20 w-auto" />
           </a>
 
           {/* Desktop Navigation */}
