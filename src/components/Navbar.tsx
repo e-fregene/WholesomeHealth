@@ -32,7 +32,7 @@ const Navbar = () => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            <img src={logo} alt="Wholesome Behavioral Health" className="h-16 md:h-20 w-auto" />
+            <img src={logo} alt="Wholesome Behavioral Health" className="h-20 md:h-28 w-auto" />
           </a>
 
           {/* Desktop Navigation */}
