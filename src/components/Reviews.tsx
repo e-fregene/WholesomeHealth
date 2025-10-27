@@ -45,7 +45,7 @@ const Reviews = () => {
                 </div>
 
                 {/* Review Text */}
-                <p className="text-foreground/80 mb-4 leading-relaxed">
+                <p className="text-foreground/80 mb-4 line-clamp-6 leading-relaxed">
                   {review.text}
                 </p>
 
