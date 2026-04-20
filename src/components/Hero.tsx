@@ -61,12 +61,12 @@ const Hero = () => {
             <Button
               variant="outline"
               size="lg"
-              onClick={() => window.location.href = "tel:+13143977219"}
+              onClick={() => window.location.href = "tel:+16366345668"}
               className="gap-2 animate-scale-in"
               style={{ animationDelay: "0.1s" }}
             >
               <Phone className="h-5 w-5" />
-              +1(636)-634-5668
+              +1 (636)-634-5668
             </Button>
           </div>
         </div>
