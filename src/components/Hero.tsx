@@ -66,7 +66,7 @@ const Hero = () => {
               style={{ animationDelay: "0.1s" }}
             >
               <Phone className="h-5 w-5" />
-              +1(314)-397-7219
+              +1(636)-634-5668
             </Button>
           </div>
         </div>
