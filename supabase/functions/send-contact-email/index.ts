@@ -33,7 +33,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "Wholesome Behavioral Health <info@wholesomehealth.care>",
-        to: ["Wholesomehealth1973@yahoo.com"],
+        to: ["contact@wholesomehealth.care"],
         reply_to: email,
         subject: "New Contact Form Submission",
         html: `
