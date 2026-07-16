@@ -14,6 +14,10 @@ const Footer = () => {
                 <p>100 Chesterfield Business Pky, Chesterfield, MO 63005</p>
               </div>
               <div className="flex items-center justify-center gap-2">
+                <MapPin className="h-5 w-5" />
+                <p>8517 Airline Avenue, Urbandale, IA 50322</p>
+              </div>
+              <div className="flex items-center justify-center gap-2">
                 <Phone className="h-5 w-5" />
                 <a href="tel:+16366345668" className="hover:text-primary transition-colors">
                   +1.636.634.5668
