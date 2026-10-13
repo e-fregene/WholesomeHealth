@@ -11,11 +11,15 @@ const Footer = () => {
             <div className="space-y-2 text-background/90">
               <div className="flex items-center justify-center gap-2">
                 <MapPin className="h-5 w-5" />
-                <p>100 Chesterfield Business Pky, Chesterfield, MO 63005</p>
+                <p>8 Eagle Center #2, O'Fallon, IL 62269</p>
               </div>
               <div className="flex items-center justify-center gap-2">
                 <MapPin className="h-5 w-5" />
                 <p>8517 Airline Avenue, Urbandale, IA 50322</p>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <MapPin className="h-5 w-5" />
+                <p>100 Chesterfield Business Pky, Chesterfield, MO 63005</p>
               </div>
               <div className="flex items-center justify-center gap-2">
                 <Phone className="h-5 w-5" />
